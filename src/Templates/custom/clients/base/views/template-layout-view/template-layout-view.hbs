@@ -1,0 +1,216 @@
+<style>
+    .headerpane h1 {
+        padding: 17px;
+        display: inline-block;
+    }
+
+    .headerpane .record-cell.pull-right {
+        float: right;
+        display: inline-block;
+    }
+
+    #import_wizard_app {
+        background: none !important;
+    }
+
+    #import_wizard_app h1, h2, h3 {
+        text-align: center;
+    }
+
+    textarea.token {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        width: 100% !important;
+    }
+
+    #token {
+        width: 100%;
+    }
+
+    .hint {
+        color: grey;
+        font-size: small;
+    }
+
+    label.custom {
+        font-size: larger;
+        display: inline-block;
+        padding: 5px 20px 5px 0px;
+
+    }
+
+    .bottom20 {
+        margin-bottom: 20px;
+    }
+
+    /*
+    div.span8.body {
+        border: 1px solid grey;
+    }*/
+
+    #setup {
+        margin-top: 20px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    td.cl_group_item,
+    td.mapp_group_item {
+        text-align: center;
+    }
+
+    .spinner_overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: lightgray;
+        opacity: 0.5;
+    }
+
+    .spinner {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        height: 60px;
+        width: 60px;
+        margin: 0px auto;
+        -webkit-animation: rotation .6s infinite linear;
+        -moz-animation: rotation .6s infinite linear;
+        -o-animation: rotation .6s infinite linear;
+        animation: rotation .6s infinite linear;
+        border-left: 6px solid rgba(0, 174, 239, .15);
+        border-right: 6px solid rgba(0, 174, 239, .15);
+        border-bottom: 6px solid rgba(0, 174, 239, .15);
+        border-top: 6px solid rgba(0, 174, 239, .8);
+        border-radius: 100%;
+    }
+
+    @-webkit-keyframes rotation {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(359deg);
+        }
+    }
+
+    @-moz-keyframes rotation {
+        from {
+            -moz-transform: rotate(0deg);
+        }
+        to {
+            -moz-transform: rotate(359deg);
+        }
+    }
+
+    @-o-keyframes rotation {
+        from {
+            -o-transform: rotate(0deg);
+        }
+        to {
+            -o-transform: rotate(359deg);
+        }
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(359deg);
+        }
+    }
+
+    #example_length {
+        display: none !important;
+    }
+
+    .cleverreach-setup .modal {
+        width: 80%;
+        left: 20%;
+    }
+
+    .select select {
+        background-color: #fff;
+        border-color: #dbdbdb;
+        border-radius: 4px;
+        color: #363636;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1em;
+        max-width: 100%;
+        outline: 0;
+    }
+
+
+</style>
+
+
+<div class="headerpane">
+
+    <div class="record-cell pull-left">
+        <h1>:template-layout-desc</h1>
+    </div>
+    <div class="record-cell pull-right">
+        <h1><a class="button btn btn-link btn-invisible" href="#bwc/index.php?module=Administration&action=index">Close</a></h1>
+    </div>
+    <div class="record-cell pull-right">
+        <h1>
+            <button class="btn btn-link btn-invisible save-settings">
+                Save
+            </button>
+        </h1>
+    </div>
+</div>
+<section id="setup">
+    {{#if data.dataFetched}}
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="wrapper span8" style="padding-top: 10px;padding-bottom: 10px;">
+                <table style="background-color: transparent;">
+                    {{#each data.items}}
+                        <tr>
+                            <td>
+
+                                <label>
+                                    <input type="checkbox" class="enables" data-name="{{name}}" data-key="{{key}}" name="{{key}}"{{#if
+                                            value}} checked{{/if}} style="display: inline"> {{name}}
+                                </label>
+
+                            </td>
+                        </tr>
+                    {{/each}}
+                </table>
+
+                <div class="delimiter" style="margin-bottom: 20px"></div>
+
+
+
+            </div>
+            <div class="span2"></div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span2"></div>
+            <div class="span10">
+                <button class="btn btn-info save-settings">
+                    Save settings
+                </button>
+            </div>
+        </div>
+    {{else}}
+        <div style="padding: 20px;">
+            loading ...
+        </div>
+    {{/if}}
+</section>
+
+
+
+
