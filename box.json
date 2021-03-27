@@ -1,0 +1,26 @@
+{
+    "chmod": "0755",
+    "directories": [
+        "src"
+    ],
+    "files": [
+        "LICENSE",
+        "src/Templates/.php_cs"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests"],
+            "in": "vendor"
+        },
+        {
+            "name": ".p",
+            "exclude": ["Tests"],
+            "in": "vendor"
+        }
+    ],
+    "git-version": "package_version",
+    "main": "sucode.php",
+    "output": "sucode.phar",
+    "stub": true
+}

@@ -1,6 +1,5 @@
-#!/usr/bin/env php
 <?php
-// application.php
+// launcher file
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -11,7 +10,7 @@ use App\Command\InitCommand;
 use App\Command\ZipperCommand;
 use Symfony\Component\Console\Application;
 
-$application = new Application();
+$application = new Application('sucode', '@package_version@');
 
 // ... register commands
 $application->add(new InitCommand());
