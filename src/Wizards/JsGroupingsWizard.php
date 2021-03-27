@@ -2,38 +2,45 @@
 
 namespace App\Wizards;
 
-use color\Color;
-use templates\Template;
+use App\Templates\Template;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class JsGroupingsWizard
 {
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
-        if (!is_file('manifest.php')) {
-            Color::printLnColored('manifest.php not found. Please run the command from the src directory', 'red');
+        $customPath = Helper::getCustomPath();
+        $manifestPath = Helper::getManifestPath();
+
+        $io = new SymfonyStyle($input, $output);
+
+        if (!$customPath) {
+            $io->writeln('manifest.php not found. Please run the command from the src directory');
             die;
         }
 
-        $fileName = Helper::askString('Groupings file name');
+        $fileName = $io->ask('Groupings file name');
 
         $grouppingHandlerNames = explode('_', $fileName);
         $handlerName = implode(array_map(function ($item) {
             return ucfirst($item);
         }, $grouppingHandlerNames));
-        $grouppingHandlerName = Helper::askString('Groupings handler name', $handlerName . 'Handler');
+        $grouppingHandlerName = $io->ask('Groupings handler name', $handlerName . 'Handler');
 
         //1 php file definition
         $content = Template::renderJsGroupingsPhp([
             ':fileName' => strtolower($fileName),
         ]);
         Helper::mkdir('custom/Extension/application/Ext/JSGroupings/');
-        file_put_contents('custom/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
+        file_put_contents($customPath.'/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
 
         //1 js file definition
         $content = Template::renderJsGroupingsJs([
             'jsGroupingHandler' => $grouppingHandlerName,
         ]);
         Helper::mkdir('custom/include/');
-        file_put_contents('custom/include/' . strtolower($fileName) . '.js', $content);
+        file_put_contents($customPath.'/include/' . strtolower($fileName) . '.js', $content);
     }
 }

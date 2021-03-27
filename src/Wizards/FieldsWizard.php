@@ -2,26 +2,31 @@
 
 namespace App\Wizards;
 
+use App\Templates\Template;
+use App\Wizards\fields\FieldFactory;
 use color\Color;
-use templates\Template;
-use wizard\fields\FieldFactory;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class FieldsWizard
 {
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
         $customPath = Helper::getCustomPath();
         $manifestPath = Helper::getManifestPath();
 
+        $io = new SymfonyStyle($input, $output);
+
         if (!$customPath) {
-            Color::printLnColored('manifest.php not found. Please run the command from the src directory', 'red');
+            $io->writeln('manifest.php not found. Please run the command from the src directory');
             die;
         }
 
-        $moduleName = Helper::askString('Input Module name');
-        $fieldName = Helper::askString('Input field name');
-        $fieldType = Helper::askString('Input field type: string,enum,int','string');
-        $fieldLabel = Helper::askString('Input field label');
+        $moduleName = $io->ask('Input Module name');
+        $fieldName = $io->ask('Input field name');
+        $fieldType = $io->ask('Input field type: string,enum,int','string');
+        $fieldLabel = $io->ask('Input field label');
 
         //open manifest
         include $manifestPath;

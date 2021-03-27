@@ -2,34 +2,41 @@
 
 namespace App\Wizards;
 
-use color\Color;
-use templates\Template;
-use wizard\fields\FieldFactory;
+use App\Templates\Template;
+use App\Wizards\fields\FieldFactory;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ManyToManyRelWizard
 {
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
-        if (!is_file('manifest.php')) {
-            Color::printLnColored('manifest.php not found. Please run the command from the src directory', 'red');
+        $customPath = Helper::getCustomPath();
+        $manifestPath = Helper::getManifestPath();
+
+        $io = new SymfonyStyle($input, $output);
+
+        if (!$customPath) {
+            $io->writeln('manifest.php not found. Please run the command from the src directory');
             die;
         }
 
-        $lhsModule = Helper::askString('lhs_module');
-        $lsSingular = Helper::askString('lhs singular module name', substr($lhsModule, 0, -1));
-        $lhsTable = Helper::askString('lhs_table', strtolower($lhsModule));
-        $lhsKey = Helper::askString('lhs_key');
+        $lhsModule = $io->ask('lhs_module');
+        $lsSingular = $io->ask('lhs singular module name', substr($lhsModule, 0, -1));
+        $lhsTable = $io->ask('lhs_table', strtolower($lhsModule));
+        $lhsKey = $io->ask('lhs_key','id');
 
-        $rhsModule = Helper::askString('rhs_module');
-        $rsSingular = Helper::askString('lhs singular module name ', substr($rhsModule, 0, -1));
-        $rhsTable = Helper::askString('rhs_table', strtolower($rhsModule));
-        $rhsKey = Helper::askString('rhs_key');
+        $rhsModule = $io->ask('rhs_module');
+        $rsSingular = $io->ask('lhs singular module name ', substr($rhsModule, 0, -1));
+        $rhsTable = $io->ask('rhs_table', strtolower($rhsModule));
+        $rhsKey = $io->ask('rhs_key','id');
 
         $lower_case_rel_name = $lhsTable . '_' . $rhsTable . '_rel';
         $linkName = $lhsTable . '_' . $rhsTable . '_link';
 
-        $join_key_lhs = Helper::askString('join_key_lhs', $lhsTable . '_id');
-        $join_key_rhs = Helper::askString('join_key_rhs ', $rhsTable . '_id');
+        $join_key_lhs = $io->ask('join_key_lhs', $lhsTable . '_id');
+        $join_key_rhs = $io->ask('join_key_rhs ', $rhsTable . '_id');
 
         $module1_module2 = strtolower($lhsModule) . '_' . strtolower($rhsModule);
 

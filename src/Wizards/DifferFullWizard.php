@@ -12,7 +12,7 @@ class DifferFullWizard
 
     public static $i = 0;
 
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
         $rootPath2 = '';
         if (is_file('manifest.php')) {

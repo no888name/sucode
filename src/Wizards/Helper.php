@@ -8,6 +8,11 @@ class Helper
 {
     public static function mkdir($dir)
     {
+        
+        if(false === strpos($dir,'src')) {
+            $dir = 'src/'.$dir;
+        }
+
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }

@@ -2,7 +2,7 @@
 
 namespace App\Templates;
 
-use wizard\Helper;
+use App\Wizards\Helper;
 
 class Template
 {

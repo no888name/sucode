@@ -2,30 +2,33 @@
 
 namespace App\Wizards;
 
-use color\Color;
-use templates\Template;
+use App\Templates\Template;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SchedulerWizard
 {
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
         $customPath = Helper::getCustomPath();
         $manifestPath = Helper::getManifestPath();
 
+        $io = new SymfonyStyle($input, $output);
+
         if (!$customPath) {
-            Color::printLnColored('manifest.php not found. Please run the command from the src directory', 'red');
+            $io->writeln('manifest.php not found. Please run the command from the src directory');
             die;
         }
-        $data = [];
 
         $moduleName = 'Schedulers';
 
-        $iniqueKey = self::askUniqueName();
-        $description = self::ask('Scheduler description');
+        $iniqueKey = $io->ask('Scheduler unique name');
+
+        $description = $io->ask('Scheduler description');
 
         $className = ucwords($moduleName) . ucwords($iniqueKey);
         $className = str_replace('_', '', $className);
-        $hooksClassName = $className . 'Hooks';
 
         //create language dir
         Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/Language/");
@@ -40,39 +43,5 @@ class SchedulerWizard
        
     }
 
-    public static function ask($prompt)
-    {
-        while (true) :
-            Color::printColored($prompt . ' : ', 'cyan');
-            $handle = fopen('php://stdin', 'r');
-            $line = trim(fgets($handle));
-            if (trim($line)) {
-                return $line;
-            }
-        endwhile;
-    }
-
-    public static function askUniqueName()
-    {
-        while (true) :
-            Color::printColored('Scheduler unique name : ', 'cyan');
-            $handle = fopen('php://stdin', 'r');
-            $line = trim(fgets($handle));
-            if (trim($line)) {
-                return $line;
-            }
-        endwhile;
-    }
-
-    public static function askUniqueDescription()
-    {
-        while (true) :
-            Color::printColored('Scheduler description', 'cyan');
-            $handle = fopen('php://stdin', 'r');
-            $line = trim(fgets($handle));
-            if (trim($line)) {
-                return $line;
-            }
-        endwhile;
-    }
+   
 }

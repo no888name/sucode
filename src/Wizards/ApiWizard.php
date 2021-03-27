@@ -2,20 +2,26 @@
 
 namespace App\Wizards;
 
-use color\Color;
-use templates\Template;
+use App\Templates\Template;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ApiWizard
 {
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
-        if (!is_file('manifest.php')) {
-            Color::printLnColored('manifest.php not found. Please run the command from the src directory', 'red');
+        $customPath = Helper::getCustomPath();
+        $manifestPath = Helper::getManifestPath();
+
+        $io = new SymfonyStyle($input, $output);
+
+        if (!$customPath) {
+            $io->writeln('manifest.php not found. Please run the command from the src directory');
             die;
         }
-
         //:template-layout-name
-        $className = Helper::askString('Enter API Class Name ', 'MyCrm' . ucfirst(Helper::generateRandomString(4)) . 'Api');
+        $className = $io->ask('Enter API Class Name ', 'MyCrm' . ucfirst(Helper::generateRandomString(4)) . 'Api');
 
         //1 prepare layout files
         Helper::mkdir('custom/clients/base/api');
@@ -24,10 +30,10 @@ class ApiWizard
             'SampleApi' => $className,
             ':class_name' => strtolower($className),
         ]);
-        file_put_contents("custom/clients/base/api/$className.php", $content);
+        file_put_contents("$customPath/clients/base/api/$className.php", $content);
 
         Helper::mkdir('custom/jobs');
         $content = Template::renderCustomJobScheduler([]);
-        file_put_contents('custom/clients/base/api/CustomJobScheduler.php', $content);
+        file_put_contents("$customPath/clients/base/api/CustomJobScheduler.php", $content);
     }
 }

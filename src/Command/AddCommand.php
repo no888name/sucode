@@ -3,7 +3,14 @@
 namespace App\Command;
 
 use App\Templates\Template;
+use App\Wizards\ApiWizard;
+use App\Wizards\FieldsWizard;
 use App\Wizards\HooksWizard;
+use App\Wizards\JsGroupingsWizard;
+use App\Wizards\LayoutWizard;
+use App\Wizards\ManyToManyRelWizard;
+use App\Wizards\O2MRelWizard;
+use App\Wizards\SchedulerWizard;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -38,64 +45,66 @@ class AddCommand extends Command
             'Please select option',
             // choices can also be PHP objects that implement __toString() method
             [
-                'Init hooks for module',
-                'Create custom field',
-                'Create one-to-many relationship',
-                'Create many-to-many relationship',
-                'Add script to JSGroupings',
-                'Add field to filter[n/a]',
-                'Add action menu[n/a]',
-                'Create Bean wizard[n/a]',
-                'Add admin section/layout',
-                'Create Api Endpoint',
-                'Add Scheduler'
+                1 => 'Init hooks for module',
+                2 => 'Create custom field',
+                3 => 'Create one-to-many relationship',
+                4 => 'Create many-to-many relationship',
+                5 => 'Add script to JSGroupings',
+                6 => 'Add admin section/layout',
+                7 => 'Create Api Endpoint',
+                8 => 'Add Scheduler',
+
+                9 => 'Add field to filter[n/a]',
+                10 => 'Add action menu[n/a]',
+                11 => 'Create Bean wizard[n/a]',
             ],
             0
         );
-        $question->setErrorMessage('Color %s is invalid.');
+        $question->setErrorMessage('Action %s is invalid.');
 
         $action = $helper->ask($input, $output, $question);
         $output->writeln('You have selected: ' . $action);
 
         switch ($action) {
-            case 0:
+            case 'Init hooks for module':
                 //do hooks init
-                HooksWizard::run($input,$output);
+                HooksWizard::run($input, $output);
                 break;
-            // case 2:
-            //     //do custom field addition
-            //     \wizard\FieldsWizard::run();
-            //     break;
-            // case 3:
-            //     //do one-to-many relation
-            //     \wizard\O2MRelWizard::run();
-            //     break;
-            // case 4:
-            //     //do many-to-many
-            //     \wizard\ManyToManyRelWizard::run();
-            //     break;
-            // case 5:
-            //     //do many-to-many
-            //     \wizard\JsGroupingsWizard::run();
-            //     break;
+            case 'Create custom field':
+                //do custom field addition
+                FieldsWizard::run($input, $output);
+                break;
+            case 'Create one-to-many relationship':
+                //do one-to-many relation
+                O2MRelWizard::run($input, $output);
+                break;
+            case 'Create many-to-many relationship':
+                //do many-to-many
+                ManyToManyRelWizard::run($input, $output);
+                break;
+            case 'Add script to JSGroupings':
+                //do many-to-many
+                JsGroupingsWizard::run($input, $output);
+                break;
+            case 'Add admin section/layout':
+                //do many-to-many
+                LayoutWizard::run($input, $output);
+                break;
+            case 'Create Api Endpoint':
+                //do many-to-many
+                ApiWizard::run($input, $output);
+                break;
 
-            // case 7:
-            //     //do many-to-many
-            //     break;
-            // case 9:
-            //     //do many-to-many
-            //     \wizard\LayoutWizard::run();
-            //     break;
-            // case 10:
-            //     //do many-to-many
-            //     \wizard\ApiWizard::run();
-            //     break;
+            case 'Add Scheduler':
+                //do many-to-many
+               SchedulerWizard::run($input, $output);
+                break;
 
-            //     case 11:
-            //         //do many-to-many
-            //         \wizard\SchedulerWizard::run();
-            //         break;
+                // case 7:
+                //     //do many-to-many
+                //     break;
 
+             
             default:
                 //do many-to-many
                 return;

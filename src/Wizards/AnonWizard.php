@@ -12,7 +12,7 @@ class AnonWizard
 {
     public static $i = 0;
 
-    public static function run()
+    public static function run(InputInterface $input, OutputInterface $output)
     {
        //get db credentials
         if (is_file('config.php')) {
