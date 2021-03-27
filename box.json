@@ -12,11 +12,6 @@
             "name": "*.php",
             "exclude": ["Tests"],
             "in": "vendor"
-        },
-        {
-            "name": ".p",
-            "exclude": ["Tests"],
-            "in": "vendor"
         }
     ],
     "git-version": "package_version",

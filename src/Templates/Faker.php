@@ -1,6 +1,5 @@
 <?php
 
-
 class Faker
 {
     public static $firstNames = [
@@ -407,7 +406,6 @@ class Faker
         'Schramm',
         'Seth',
         'Sgro',
-
     ];
 
     public static $companyNames = [
@@ -461,7 +459,6 @@ class Faker
         'Underwater Mining Inc.',
         'Waverly Trading House',
         'X-Sell Holdings',
-
     ];
 
     public static $phoneNumbers = [
@@ -515,15 +512,14 @@ class Faker
         '(603) 183-0316',
         '(108) 624-5252',
         '(243) 265-4805',
-
     ];
 
     public static $countries = [
-        'USA', 'DE', 'UA'
+        'USA', 'DE', 'UA',
     ];
 
     public static $states = [
-        'CA', 'NY', 'WY'
+        'CA', 'NY', 'WY',
     ];
 
     public static $cities = [
@@ -555,13 +551,9 @@ class Faker
         '9 IBM Path',
         '67321 West Siam St.',
         '999 Baker Way',
-
     ];
 
     public static $postalCodes = [
-        234567,23456,56788,234567,234567,0101010
-
+        234567, 23456, 56788, 234567, 234567, 0101010,
     ];
-
-
 }

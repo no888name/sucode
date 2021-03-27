@@ -92,8 +92,6 @@ class ModuleHelper
     /**
      * Get human readable interval string
      *
-     * @param DateInterval $interval
-     *
      * @return string
      */
     public static function getHumanInterval(DateInterval $interval)

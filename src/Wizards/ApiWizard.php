@@ -18,7 +18,7 @@ class ApiWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
         //:template-layout-name
         $className = $io->ask('Enter API Class Name ', 'MyCrm' . ucfirst(Helper::generateRandomString(4)) . 'Api');

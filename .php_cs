@@ -3,7 +3,7 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude(['tests', 'node_modules', 'web', 'config','vendor','assets'])
     ->notPath('config/listeners.php')
     ->in([
-        __DIR__ . '/src/custom',
+        __DIR__ . '/src',
     ]);
 $config = PhpCsFixer\Config::create()
     ->setUsingCache(true)

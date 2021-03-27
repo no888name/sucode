@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-use App\Templates\Template;
 use App\Wizards\ApiWizard;
 use App\Wizards\FieldsWizard;
 use App\Wizards\HooksWizard;
@@ -15,7 +14,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class AddCommand extends Command
@@ -36,7 +34,6 @@ class AddCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $io = new SymfonyStyle($input, $output);
         $result = $io->writeln('');
 
@@ -104,12 +101,10 @@ class AddCommand extends Command
                 //     //do many-to-many
                 //     break;
 
-             
             default:
                 //do many-to-many
                 return;
         }
-
 
         return Command::SUCCESS;
     }

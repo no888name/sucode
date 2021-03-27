@@ -18,7 +18,7 @@ class LayoutWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
 
         //:template-layout-name

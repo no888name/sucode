@@ -18,7 +18,7 @@ class SchedulerWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
 
         $moduleName = 'Schedulers';
@@ -32,16 +32,12 @@ class SchedulerWizard
 
         //create language dir
         Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/Language/");
-        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/Language/en_us." . strtolower($iniqueKey).'_scheduler.php', Template::renderSchedulerLang([
-            ':LBL_LABEL_NAME' => 'LBL_' . strtoupper($iniqueKey).'_SCHEDULER',
+        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/Language/en_us." . strtolower($iniqueKey) . '_scheduler.php', Template::renderSchedulerLang([
+            ':LBL_LABEL_NAME' => 'LBL_' . strtoupper($iniqueKey) . '_SCHEDULER',
             ':LBL_LABEL_VALUE' => $description,
         ]));
 
         Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/");
-        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/". strtolower($iniqueKey)."_scheduler.php", Template::renderSchedulerFile([':unique_name' => $iniqueKey]));
-
-       
+        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/" . strtolower($iniqueKey) . '_scheduler.php', Template::renderSchedulerFile([':unique_name' => $iniqueKey]));
     }
-
-   
 }

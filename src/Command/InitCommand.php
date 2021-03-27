@@ -6,8 +6,6 @@ use App\Templates\Template;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class InitCommand extends Command
@@ -28,7 +26,6 @@ class InitCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $io = new SymfonyStyle($input, $output);
         $result = $io->confirm('Do you want to create sugar package in current directory ?');
         $data = [];
@@ -54,7 +51,6 @@ class InitCommand extends Command
             }, $nameParts);
 
             $data[':UpperCamelName'] = implode('', $nameParts);
-
 
             mkdir($name);
             mkdir("$name/src");

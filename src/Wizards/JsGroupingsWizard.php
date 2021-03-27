@@ -18,7 +18,7 @@ class JsGroupingsWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
 
         $fileName = $io->ask('Groupings file name');
@@ -34,13 +34,13 @@ class JsGroupingsWizard
             ':fileName' => strtolower($fileName),
         ]);
         Helper::mkdir('custom/Extension/application/Ext/JSGroupings/');
-        file_put_contents($customPath.'/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
+        file_put_contents($customPath . '/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
 
         //1 js file definition
         $content = Template::renderJsGroupingsJs([
             'jsGroupingHandler' => $grouppingHandlerName,
         ]);
         Helper::mkdir('custom/include/');
-        file_put_contents($customPath.'/include/' . strtolower($fileName) . '.js', $content);
+        file_put_contents($customPath . '/include/' . strtolower($fileName) . '.js', $content);
     }
 }

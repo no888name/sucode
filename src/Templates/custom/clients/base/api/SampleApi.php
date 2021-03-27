@@ -1,9 +1,9 @@
 <?php
 
 if (!defined('sugarEntry') || !sugarEntry) {
-    die('Not A Valid Entry Point');
+    exit('Not A Valid Entry Point');
 }
-require_once('clients/base/api/ModuleApi.php');
+require_once ('clients/base/api/ModuleApi.php');
 
 class SampleApi extends ModuleApi
 {
@@ -147,8 +147,6 @@ class SampleApi extends ModuleApi
 
         global $db;
 
-
-
         $job = BeanFactory::getBean('SchedulersJobs', null);
         $job->name = 'Some Reminder';
         $job->target = 'class::' . \Sugarcrm\Sugarcrm\custom\jobs\CustomJobScheduler::class;
@@ -161,7 +159,6 @@ class SampleApi extends ModuleApi
             'parent_id' => $args['id'],
             'contactId' => $args['contactId'],
         ]);
-
 
         $jq = new SugarJobQueue();
         $jq->submitJob($job);

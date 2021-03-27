@@ -18,7 +18,7 @@ class DifferWizard
 
             if (is_dir('SugarModules')) {
                 $rootPath2 = 'SugarModules';
-            } else if (is_dir('modules')) {
+            } elseif (is_dir('modules')) {
                 $rootPath2 = 'modules';
             }
         } elseif (is_file('src/manifest.php')) {
@@ -26,7 +26,7 @@ class DifferWizard
 
             if (is_dir('src/SugarModules')) {
                 $rootPath2 = 'src/SugarModules';
-            } else if (is_dir('src/modules')) {
+            } elseif (is_dir('src/modules')) {
                 $rootPath2 = 'src/modules';
             }
         }
@@ -49,7 +49,9 @@ class DifferWizard
         $exclude = ['.git', 'otherDirToExclude', 'scripts', 'manifest.php'];
 
         self::specificRun($rootPath, $deploymentPath, $exclude);
-        if($rootPath2) self::specificRun($rootPath2, $deploymentPath2, $exclude);
+        if ($rootPath2) {
+            self::specificRun($rootPath2, $deploymentPath2, $exclude);
+        }
     }
 
     public static function specificRun($rootPath, $deploymentPath, $exclude)

@@ -16,7 +16,7 @@ $manifest = [
     'remove_tables' => 'prompt',
 
     'acceptable_sugar_versions' => [
-        'regex_matches' => ['9.*','10.*','11.*','12.*'],
+        'regex_matches' => ['9.*', '10.*', '11.*', '12.*'],
     ],
     'acceptable_sugar_flavors' => ['ENT', 'ULT', 'PRO', 'CORP'],
 ];

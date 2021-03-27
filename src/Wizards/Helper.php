@@ -8,9 +8,8 @@ class Helper
 {
     public static function mkdir($dir)
     {
-        
-        if(false === strpos($dir,'src')) {
-            $dir = 'src/'.$dir;
+        if (false === strpos($dir, 'src')) {
+            $dir = 'src/' . $dir;
         }
 
         if (!file_exists($dir)) {
@@ -75,26 +74,25 @@ class Helper
         return $randomString;
     }
 
-    public static function getCustomPath() {
+    public static function getCustomPath()
+    {
         $rootPath = '';
         if (is_file('manifest.php')) {
             $rootPath = 'custom';
-
         } elseif (is_file('src/manifest.php')) {
             $rootPath = 'src/custom';
-
         }
 
         return $rootPath;
     }
-    public static function getManifestPath() {
+
+    public static function getManifestPath()
+    {
         $rootPath = '';
         if (is_file('manifest.php')) {
             $rootPath = 'manifest.php';
-
         } elseif (is_file('src/manifest.php')) {
             $rootPath = 'src/manifest.php';
-
         }
 
         return $rootPath;

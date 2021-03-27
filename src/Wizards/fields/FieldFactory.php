@@ -2,21 +2,22 @@
 
 namespace App\Wizards\fields;
 
-use wizard\Helper;
 
 class FieldFactory
 {
     public $type;
     public $name;
     public $module;
+    public $io;
 
     public $listName = null;
 
-    public function __construct($type, $name, $module)
+    public function __construct($type, $name, $module, $io)
     {
         $this->type = $type;
         $this->name = $name;
         $this->module = $module;
+        $this->io = $io;
     }
 
     public function process()
@@ -69,8 +70,7 @@ class FieldFactory
 
     public function processEnum()
     {
-        $listName = Helper::askString('Please input list name');
-
+        $listName = $this->io->ask('Input field name');
         $this->listName = $listName;
 
         return [

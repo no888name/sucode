@@ -7,8 +7,8 @@ if (!defined('sugarEntry')) {
 //change directories to where this file is located.
 chdir(dirname(__FILE__));
 
-require_once('include/entryPoint.php');
-require_once('Faker.php');
+require_once ('include/entryPoint.php');
+require_once ('Faker.php');
 
 $sapi_type = php_sapi_name();
 // Allow only CLI invocation
@@ -28,20 +28,17 @@ $sql = "update email_addresses
 		    email_address_caps = concat('andleex+',REPLACE(email_addr_bean_rel.bean_id, '-', ''),'@gmail.com')";
 $stmt = $db->getConnection()->executeQuery($sql);
 
-
 //do contacts
 global $db;
 
-$sql = "SELECT id FROM contacts";
+$sql = 'SELECT id FROM contacts';
 $stmt = $db->getConnection()->executeQuery($sql, [
-
 ]);
 
-echo 'Processing contacts'.$i.PHP_EOL;
+echo 'Processing contacts' . $i . PHP_EOL;
 $i = 1;
 
-while($result = $stmt->fetch()){
-
+while ($result = $stmt->fetch()) {
 //    echo 'Processing #'.$i.PHP_EOL;
 //
 //    $updateSql = "update contacts set first_name = :first_name, last_name = :last_name,
@@ -67,17 +64,15 @@ while($result = $stmt->fetch()){
 }
 
 //do accounts
-$sql = "SELECT id FROM accounts";
+$sql = 'SELECT id FROM accounts';
 $stmt = $db->getConnection()->executeQuery($sql, [
-
 ]);
 $i = 1;
 
-while($result = $stmt->fetch()){
+while ($result = $stmt->fetch()) {
+    echo 'Processing Account #' . $i . PHP_EOL;
 
-    echo 'Processing Account #'.$i.PHP_EOL;
-
-    $updateSql = "update accounts set name = :name,
+    $updateSql = 'update accounts set name = :name,
             phone_office = :phone, phone_alternate = :phone, phone_fax = :phone , 
             billing_address_street = :billing_address_street,billing_address_city = :billing_address_city, billing_address_state = :billing_address_state, 
             billing_address_postalcode = :billing_address_postalcode,
@@ -87,29 +82,28 @@ while($result = $stmt->fetch()){
             shipping_address_postalcode = :shipping_address_postalcode,
             shipping_address_country = :shipping_address_country
             where id = :id
-            ";
+            ';
     $stmt1 = $db->getConnection()->executeQuery($updateSql, [
-        'name' => Faker::$companyNames[rand(0,count(Faker::$companyNames)-1)] . '#'.$i,
-        'phone' => Faker::$phoneNumbers[rand(0,count(Faker::$phoneNumbers)-1)],
-        'billing_address_street' => Faker::$streets[rand(0,count(Faker::$streets)-1)],
-        'billing_address_city' => Faker::$cities[rand(0,count(Faker::$cities)-1)],
-        'billing_address_state' => Faker::$states[rand(0,count(Faker::$states)-1)],
-        'billing_address_postalcode' => Faker::$postalCodes[rand(0,count(Faker::$postalCodes)-1)],
-        'billing_address_country' => Faker::$countries[rand(0,count(Faker::$countries)-1)],
+        'name' => Faker::$companyNames[rand(0, count(Faker::$companyNames) - 1)] . '#' . $i,
+        'phone' => Faker::$phoneNumbers[rand(0, count(Faker::$phoneNumbers) - 1)],
+        'billing_address_street' => Faker::$streets[rand(0, count(Faker::$streets) - 1)],
+        'billing_address_city' => Faker::$cities[rand(0, count(Faker::$cities) - 1)],
+        'billing_address_state' => Faker::$states[rand(0, count(Faker::$states) - 1)],
+        'billing_address_postalcode' => Faker::$postalCodes[rand(0, count(Faker::$postalCodes) - 1)],
+        'billing_address_country' => Faker::$countries[rand(0, count(Faker::$countries) - 1)],
 
-        'shipping_address_street' => Faker::$streets[rand(0,count(Faker::$streets)-1)],
-        'shipping_address_city' => Faker::$cities[rand(0,count(Faker::$cities)-1)],
-        'shipping_address_state' => Faker::$states[rand(0,count(Faker::$states)-1)],
-        'shipping_address_postalcode' => Faker::$postalCodes[rand(0,count(Faker::$postalCodes)-1)],
-        'shipping_address_country' => Faker::$countries[rand(0,count(Faker::$countries)-1)],
-        'id' => $result['id']
+        'shipping_address_street' => Faker::$streets[rand(0, count(Faker::$streets) - 1)],
+        'shipping_address_city' => Faker::$cities[rand(0, count(Faker::$cities) - 1)],
+        'shipping_address_state' => Faker::$states[rand(0, count(Faker::$states) - 1)],
+        'shipping_address_postalcode' => Faker::$postalCodes[rand(0, count(Faker::$postalCodes) - 1)],
+        'shipping_address_country' => Faker::$countries[rand(0, count(Faker::$countries) - 1)],
+        'id' => $result['id'],
     ]);
 
-    $i++;
+    ++$i;
 }
 //do opportunities
 
 //do leads
 
 //do users
-

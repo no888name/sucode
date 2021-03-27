@@ -12,10 +12,6 @@
 
 namespace Sugarcrm\Sugarcrm\custom\jobs;
 
-use BeanFactory;
-use Sugarcrm\Sugarcrm\custom\CsatHelper;
-use Sugarcrm\Sugarcrm\custom\EmailHelper;
-
 /**
  * Persistent scheduler which is responsible to create subsequent jobs based
  * on what needs to be consumed from the database queue.
@@ -87,6 +83,4 @@ class CustomJobScheduler implements \RunnableSchedulerJob
         $this->job->status = 'queued';
         $this->job->save();
     }
-
-
 }

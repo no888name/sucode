@@ -3,7 +3,6 @@
 namespace App\Wizards;
 
 use App\Templates\Template;
-use color\Color;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -19,7 +18,7 @@ class HooksWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
 
         $data = [];
@@ -43,5 +42,4 @@ class HooksWizard
         Helper::mkdir("$customPath/general");
         file_put_contents("$customPath/general/ModuleHelper.php", $helper);
     }
-
 }

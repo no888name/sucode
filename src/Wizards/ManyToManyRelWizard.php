@@ -19,18 +19,18 @@ class ManyToManyRelWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
 
         $lhsModule = $io->ask('lhs_module');
         $lsSingular = $io->ask('lhs singular module name', substr($lhsModule, 0, -1));
         $lhsTable = $io->ask('lhs_table', strtolower($lhsModule));
-        $lhsKey = $io->ask('lhs_key','id');
+        $lhsKey = $io->ask('lhs_key', 'id');
 
         $rhsModule = $io->ask('rhs_module');
         $rsSingular = $io->ask('lhs singular module name ', substr($rhsModule, 0, -1));
         $rhsTable = $io->ask('rhs_table', strtolower($rhsModule));
-        $rhsKey = $io->ask('rhs_key','id');
+        $rhsKey = $io->ask('rhs_key', 'id');
 
         $lower_case_rel_name = $lhsTable . '_' . $rhsTable . '_rel';
         $linkName = $lhsTable . '_' . $rhsTable . '_link';

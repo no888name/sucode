@@ -1,6 +1,6 @@
 <?php
 
-include('src/manifest.php');
+include ('src/manifest.php');
 
 $zip = new ZipArchive();
 $fileName = $manifest['key'] . '-v' . $manifest['version'] . '.zip';

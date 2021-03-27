@@ -71,6 +71,7 @@ class Template
 
         return strtr($str, $data);
     }
+
     public static function renderLayoutViewHbs($data)
     {
         $str = file_get_contents(__DIR__ . '/custom/clients/base/views/template-layout-view/template-layout-view.hbs');
@@ -84,6 +85,7 @@ class Template
 
         return strtr($str, $data);
     }
+
     public static function renderAdminLayoutLang($data)
     {
         $str = file_get_contents(__DIR__ . '/custom/Extension/modules/Administration/Ext/Language/en_us.template-layout-name.php');
@@ -104,7 +106,6 @@ class Template
 
         return strtr($str, $data);
     }
-
 
     public static function renderJsGroupingsPhp($data)
     {
@@ -159,7 +160,8 @@ class Template
 //        var_dump($items);
 
         $content = '<?php' . PHP_EOL;
-        $content .= '$app_list_strings["' . $name . '"] = ' . Helper::var_export_short($values, true) .';'. PHP_EOL;
+        $content .= '$app_list_strings["' . $name . '"] = ' . Helper::var_export_short($values, true) . ';' . PHP_EOL;
+
         return $content;
     }
 
@@ -200,6 +202,7 @@ class Template
 
         return strtr($str, $data);
     }
+
     public static function renderFaker($data)
     {
         $str = file_get_contents(__DIR__ . '/Faker.php');

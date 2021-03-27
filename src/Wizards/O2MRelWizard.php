@@ -19,17 +19,17 @@ class O2MRelWizard
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
-            die;
+            exit;
         }
 
         $lsName = $io->ask('lhs_module');
-        $lsSingular = $io->ask('lhs singular module name',substr($lsName, 0, -1));
-        $lhsTable = $io->ask('lhs_table',strtolower($lsName));
-        $lhsKey = $io->ask('lhs_key','id');
+        $lsSingular = $io->ask('lhs singular module name', substr($lsName, 0, -1));
+        $lhsTable = $io->ask('lhs_table', strtolower($lsName));
+        $lhsKey = $io->ask('lhs_key', 'id');
 
         $rhsModule = $io->ask('rhs_module');
-        $rhsTable = $io->ask('rhs_table',strtolower($rhsModule));
-        $rhsKey = $io->ask('rhs_key',strtolower(substr($lsName, 0, -1).'_id'));
+        $rhsTable = $io->ask('rhs_table', strtolower($rhsModule));
+        $rhsKey = $io->ask('rhs_key', strtolower(substr($lsName, 0, -1) . '_id'));
 
         $linkName = strtolower($lsName) . '_' . strtolower($rhsModule) . '_link';
 
@@ -57,7 +57,7 @@ class O2MRelWizard
         file_put_contents("custom/Extension/modules/$lsName/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
 
         //ask about subpanel
-        $subpanel = $io->ask('Do you want to display subpanel?','y');
+        $subpanel = $io->ask('Do you want to display subpanel?', 'y');
         if ('y' == $subpanel || 'yes' == $subpanel) {
             $subpanelName = strtolower($rhsModule) . '_subpanel';
             Helper::mkdir("custom/Extension/modules/$lsName/Ext/clients/base/layouts/subpanels");

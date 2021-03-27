@@ -10,4 +10,3 @@ $dictionary[':Singular']['fields'][':linkName'] = [
     'bean_name' => ':Module', //importanto to have
     'id_name' => ':join_key',
 ];
-
