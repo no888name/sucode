@@ -26,7 +26,9 @@ class ZipperCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $result = $io->confirm('Do you want to create sugar package in current directory ?');
+
+        $result = shell_exec('php zipper.php');
+        $io->writeln($result);
 
         return Command::SUCCESS;
     }

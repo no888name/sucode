@@ -2,7 +2,6 @@
 
 namespace App\Wizards\fields;
 
-
 class FieldFactory
 {
     public $type;

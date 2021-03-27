@@ -1,3 +1,31 @@
+
+PHP based helper CLI tool for easier development of packages for SugarCRM
+
+Usage
+=====
+todo
+
+1. init
+Inits a directory and directory structure for new package development
+
+2. add
+Used to add some frequently used functionalite to the SugarCRM package
+  [1 ] Init hooks for module
+  [2 ] Create custom field
+  [3 ] Create one-to-many relationship
+  [4 ] Create many-to-many relationship
+  [5 ] Add script to JSGroupings
+  [6 ] Add admin section/layout
+  [7 ] Create Api Endpoint
+  [8 ] Add Scheduler
+  [9 ] Add field to filter[n/a]
+  [10] Add action menu[n/a]
+  [11] Create Bean wizard[n/a]
+
+
+Changing and further development
+================================
+
 1) clone
 2) composer install
 3) download box 
