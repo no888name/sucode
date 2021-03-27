@@ -3,7 +3,8 @@ PHP based helper CLI tool for easier development of packages for SugarCRM
 
 Usage
 =====
-todo
+0. Installation
+wget https://github.com/litvinovandrew/sucode/blob/af13ac796a4a7ed1712ae391c75bd8ea0cf5e67c/build/sucode.phar && cp /usr/bin/sucode
 
 1. init
 Inits a directory and directory structure for new package development
@@ -28,6 +29,8 @@ Changing and further development
 
 1) clone
 2) composer install
+3) make any needed changes
 3) download box 
    phive install humbug/box --force-accept-unsigned
 4) Build ./tools/box build && sudo mv sucode.phar /usr/bin/sucode
+5) execute in command line `sucode` 
