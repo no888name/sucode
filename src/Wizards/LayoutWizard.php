@@ -45,14 +45,14 @@ class LayoutWizard
         $lbl_layout_desc = $io->ask('Enter layout description ', 'My Sample Layout');
 
         //1 prepare layout files
-        Helper::mkdir("custom/clients/base/layouts/$layoutName");
+        Helper::mkdir("$customPath/clients/base/layouts/$layoutName");
         $content = Template::renderLayoutDef([
             ':template-layout-name' => $layoutName,
         ]);
         file_put_contents("$customPath/clients/base/layouts/$layoutName/$layoutName-def.php", $content);
 
         //2 prepare views files
-        Helper::mkdir("custom/clients/base/views/$layoutName-view");
+        Helper::mkdir("$customPath/clients/base/views/$layoutName-view");
         $content = Template::renderLayoutViewJs([
             ':template-layout-name' => $layoutName,
         ]);
@@ -69,10 +69,10 @@ class LayoutWizard
         }
 
         //3 Administration folder
-        Helper::mkdir('custom/Extension/modules/Administration/');
-        Helper::mkdir('custom/Extension/modules/Administration/Ext');
-        Helper::mkdir('custom/Extension/modules/Administration/Ext/Administration');
-        Helper::mkdir('custom/Extension/modules/Administration/Ext/Language');
+        Helper::mkdir("$customPath/Extension/modules/Administration/");
+        Helper::mkdir("$customPath/Extension/modules/Administration/Ext");
+        Helper::mkdir("$customPath/Extension/modules/Administration/Ext/Administration");
+        Helper::mkdir("$customPath/Extension/modules/Administration/Ext/Language");
 
         $content = Template::renderAdminLayoutDef([
             ':template-layout-name' => $layoutName,

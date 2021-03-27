@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Wizards\AclWizard;
 use App\Wizards\ApiWizard;
 use App\Wizards\FieldsWizard;
 use App\Wizards\HooksWizard;
@@ -54,6 +55,7 @@ class AddCommand extends Command
                 9 => 'Add field to filter[n/a]',
                 10 => 'Add action menu[n/a]',
                 11 => 'Create Bean wizard[n/a]',
+                12 => 'ACL',
             ],
             0
         );
@@ -64,37 +66,32 @@ class AddCommand extends Command
 
         switch ($action) {
             case 'Init hooks for module':
-                //do hooks init
                 HooksWizard::run($input, $output);
                 break;
             case 'Create custom field':
-                //do custom field addition
                 FieldsWizard::run($input, $output);
                 break;
             case 'Create one-to-many relationship':
-                //do one-to-many relation
                 O2MRelWizard::run($input, $output);
                 break;
             case 'Create many-to-many relationship':
-                //do many-to-many
                 ManyToManyRelWizard::run($input, $output);
                 break;
             case 'Add script to JSGroupings':
-                //do many-to-many
                 JsGroupingsWizard::run($input, $output);
                 break;
             case 'Add admin section/layout':
-                //do many-to-many
                 LayoutWizard::run($input, $output);
                 break;
             case 'Create Api Endpoint':
-                //do many-to-many
                 ApiWizard::run($input, $output);
+                break;
+            case 'ACL':
+                AclWizard::run($input, $output);
                 break;
 
             case 'Add Scheduler':
-                //do many-to-many
-               SchedulerWizard::run($input, $output);
+                SchedulerWizard::run($input, $output);
                 break;
 
                 // case 7:
@@ -103,7 +100,8 @@ class AddCommand extends Command
 
             default:
                 //do many-to-many
-                return;
+                $output->writeln('Action not available ' . $action);
+                break;
         }
 
         return Command::SUCCESS;

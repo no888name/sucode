@@ -228,9 +228,46 @@ zipper.php
 .idea/
 .php_cs.cache
 .php_cs
+.vscode
+.sucode
 
 GITIGNORE;
 
         return $str;
+    }
+
+    public static function renderAcl($data)
+    {
+        $str = file_get_contents(__DIR__ . '/custom/data/acl/AclTemplate.php');
+
+        return strtr($str, $data);
+    }
+
+    public static function renderAclEnable($data)
+    {
+        $str = file_get_contents(__DIR__ . '/custom/Extension/modules/modulename/Ext/Vardefs/template_enable_acl.php');
+
+        return strtr($str, $data);
+    }
+
+    public static function renderIncludeAcl($data)
+    {
+        $str = file_get_contents(__DIR__ . '/custom/Extension/application/Ext/Include/IncludeAclTemplate.php');
+
+        return strtr($str, $data);
+    }
+
+    public static function renderChangeLog()
+    {
+        $str = <<<LICENCE
+
+        # Changelog
+        All notable changes to this project will be documented in this file.
+        
+        ## [1.0.0] - _date_
+        - initial package
+LICENCE;
+
+        return strtr($str, ['_date_' => date('Y-m-d')]);
     }
 }

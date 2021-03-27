@@ -24,7 +24,7 @@ class ApiWizard
         $className = $io->ask('Enter API Class Name ', 'MyCrm' . ucfirst(Helper::generateRandomString(4)) . 'Api');
 
         //1 prepare layout files
-        Helper::mkdir('custom/clients/base/api');
+        Helper::mkdir("$customPath/clients/base/api");
 
         $content = Template::renderApi([
             'SampleApi' => $className,
@@ -32,7 +32,7 @@ class ApiWizard
         ]);
         file_put_contents("$customPath/clients/base/api/$className.php", $content);
 
-        Helper::mkdir('custom/jobs');
+        Helper::mkdir("$customPath/jobs");
         $content = Template::renderCustomJobScheduler([]);
         file_put_contents("$customPath/clients/base/api/CustomJobScheduler.php", $content);
     }

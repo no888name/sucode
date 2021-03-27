@@ -29,7 +29,7 @@ class O2MRelWizard
 
         $rhsModule = $io->ask('rhs_module');
         $rhsTable = $io->ask('rhs_table', strtolower($rhsModule));
-        $rhsKey = $io->ask('rhs_key', strtolower(substr($lsName, 0, -1) . '_id'));
+        $rhsKey = $io->ask('rhs_key', strtolower(substr($rhsModule, 0, -1) . '_id'));
 
         $linkName = strtolower($lsName) . '_' . strtolower($rhsModule) . '_link';
 
@@ -46,32 +46,32 @@ class O2MRelWizard
             ':rhsTable' => $rhsTable,
             ':rhsKey' => $rhsKey,
         ]);
-        Helper::mkdir("custom/Extension/modules/$lsName/Ext/Vardefs/");
-        file_put_contents("custom/Extension/modules/$lsName/Ext/Vardefs/" . strtolower($linkName) . '.php', $content);
+        Helper::mkdir("$customPath/Extension/modules/$lsName/Ext/Vardefs/");
+        file_put_contents("$customPath/Extension/modules/$lsName/Ext/Vardefs/" . strtolower($linkName) . '.php', $content);
 
         //write label translations
-        Helper::mkdir("custom/Extension/modules/$lsName/Ext/Language/");
+        Helper::mkdir("$customPath/Extension/modules/$lsName/Ext/Language/");
         $labelsData = [];
         $labelsData['label'] = FieldFactory::getLabelName($linkName);
         $labelsData['translation'] = $rhsModule . ' of ' . $lsName;
-        file_put_contents("custom/Extension/modules/$lsName/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
+        file_put_contents("$customPath/Extension/modules/$lsName/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
 
         //ask about subpanel
         $subpanel = $io->ask('Do you want to display subpanel?', 'y');
         if ('y' == $subpanel || 'yes' == $subpanel) {
             $subpanelName = strtolower($rhsModule) . '_subpanel';
-            Helper::mkdir("custom/Extension/modules/$lsName/Ext/clients/base/layouts/subpanels");
+            Helper::mkdir("$customPath/Extension/modules/$lsName/Ext/clients/base/layouts/subpanels");
             $content = Template::renderSubpanelFile([
                 ':lhsName' => $lsName,
                 ':label' => FieldFactory::getLabelName($subpanelName),
                 ':linkName' => $linkName,
             ]);
-            file_put_contents("custom/Extension/modules/$lsName/Ext/clients/base/layouts/subpanels/" . $subpanelName . '.php', $content);
+            file_put_contents("$customPath/Extension/modules/$lsName/Ext/clients/base/layouts/subpanels/" . $subpanelName . '.php', $content);
 
             $labelsData = [];
             $labelsData['label'] = FieldFactory::getLabelName($subpanelName);
             $labelsData['translation'] = $rhsModule . ' of ' . $lsName;
-            file_put_contents("custom/Extension/modules/$lsName/Ext/Language/en_us." . strtolower($subpanelName) . '.php', Template::renderLabelsFile([$labelsData]));
+            file_put_contents("$customPath/Extension/modules/$lsName/Ext/Language/en_us." . strtolower($subpanelName) . '.php', Template::renderLabelsFile([$labelsData]));
         }
     }
 }

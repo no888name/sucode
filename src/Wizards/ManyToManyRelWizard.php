@@ -50,10 +50,10 @@ class ManyToManyRelWizard
             ':join_key' => $join_key_rhs,
         ]);
 
-        Helper::mkdir("custom/Extension/modules/$lhsModule/Ext/Vardefs/");
-        Helper::mkdir("custom/Extension/modules/$lhsModule/Ext/Language/");
+        Helper::mkdir("$customPath/Extension/modules/$lhsModule/Ext/Vardefs/");
+        Helper::mkdir("$customPath/Extension/modules/$lhsModule/Ext/Language/");
 
-        file_put_contents("custom/Extension/modules/$lhsModule/Ext/Vardefs/" . strtolower($linkName) . '_M2M.php', $content);
+        file_put_contents("$customPath/Extension/modules/$lhsModule/Ext/Vardefs/" . strtolower($linkName) . '_M2M.php', $content);
 
         //2 saving link definition for right module
         $content = Template::renderManyToManyVardef([
@@ -64,10 +64,10 @@ class ManyToManyRelWizard
             ':Module' => $lhsModule,
             ':join_key' => $join_key_lhs,
         ]);
-        Helper::mkdir("custom/Extension/modules/$rhsModule/Ext/Vardefs/");
-        Helper::mkdir("custom/Extension/modules/$rhsModule/Ext/Language/");
+        Helper::mkdir("$customPath/Extension/modules/$rhsModule/Ext/Vardefs/");
+        Helper::mkdir("$customPath/Extension/modules/$rhsModule/Ext/Language/");
 
-        file_put_contents("custom/Extension/modules/$rhsModule/Ext/Vardefs/" . strtolower($linkName) . '_M2M.php', $content);
+        file_put_contents("$customPath/Extension/modules/$rhsModule/Ext/Vardefs/" . strtolower($linkName) . '_M2M.php', $content);
 
         //3  write M2M custom relationship metadata
         $content = Template::renderManyToManyMetadata([
@@ -82,58 +82,58 @@ class ManyToManyRelWizard
             ':join_key_rhs' => $join_key_rhs,
         ]);
 
-        Helper::mkdir('custom/metadata/');
-        file_put_contents("custom/metadata/{$module1_module2}MetaData.php", $content);
+        Helper::mkdir("$customPath/metadata/");
+        file_put_contents("$customPath/metadata/{$module1_module2}MetaData.php", $content);
 
         //4  write to application directory file that included metadata above
         $content = Template::renderTableDictionary([
             ':module1_module2' => $module1_module2,
         ]);
-        Helper::mkdir('custom/Extension/application/Ext/TableDictionary');
-        file_put_contents("custom/Extension/application/Ext/TableDictionary/{$module1_module2}.php", $content);
+        Helper::mkdir("$customPath/Extension/application/Ext/TableDictionary");
+        file_put_contents("$customPath/Extension/application/Ext/TableDictionary/{$module1_module2}.php", $content);
 
         //5 subpanel to left hand module
         $subpanelName = strtolower($rhsModule) . '_subpanel';
-        Helper::mkdir("custom/Extension/modules/$lhsModule/Ext/clients/base/layouts/subpanels");
+        Helper::mkdir("$customPath/Extension/modules/$lhsModule/Ext/clients/base/layouts/subpanels");
         $content = Template::renderSubpanelFile([
             ':lhsName' => $lhsModule,
             ':label' => FieldFactory::getLabelName($subpanelName),
             ':linkName' => $linkName,
         ]);
-        file_put_contents("custom/Extension/modules/$lhsModule/Ext/clients/base/layouts/subpanels/" . $subpanelName . '.php', $content);
+        file_put_contents("$customPath/Extension/modules/$lhsModule/Ext/clients/base/layouts/subpanels/" . $subpanelName . '.php', $content);
         //5.1 Subpanel Label
         $labelsData = [];
         $labelsData['label'] = FieldFactory::getLabelName($subpanelName);
         $labelsData['translation'] = $rhsModule . ' of ' . $lhsModule;
-        file_put_contents("custom/Extension/modules/$lhsModule/Ext/Language/en_us." . strtolower($subpanelName) . '.php', Template::renderLabelsFile([$labelsData]));
+        file_put_contents("$customPath/Extension/modules/$lhsModule/Ext/Language/en_us." . strtolower($subpanelName) . '.php', Template::renderLabelsFile([$labelsData]));
 
         //6 subpanel to right hand module
         $subpanelName = strtolower($lhsModule) . '_subpanel';
-        Helper::mkdir("custom/Extension/modules/$rhsModule/Ext/clients/base/layouts/subpanels");
+        Helper::mkdir("$customPath/Extension/modules/$rhsModule/Ext/clients/base/layouts/subpanels");
         $content = Template::renderSubpanelFile([
             ':lhsName' => $rhsModule,
             ':label' => FieldFactory::getLabelName($subpanelName),
             ':linkName' => $linkName,
         ]);
-        file_put_contents("custom/Extension/modules/$rhsModule/Ext/clients/base/layouts/subpanels/" . $subpanelName . '.php', $content);
+        file_put_contents("$customPath/Extension/modules/$rhsModule/Ext/clients/base/layouts/subpanels/" . $subpanelName . '.php', $content);
 
         //6.1 Subpanel Label
         $labelsData = [];
         $labelsData['label'] = FieldFactory::getLabelName($subpanelName);
         $labelsData['translation'] = $rhsModule . ' of ' . $lhsModule;
-        file_put_contents("custom/Extension/modules/$lhsModule/Ext/Language/en_us." . strtolower($subpanelName) . '.php', Template::renderLabelsFile([$labelsData]));
+        file_put_contents("$customPath/Extension/modules/$lhsModule/Ext/Language/en_us." . strtolower($subpanelName) . '.php', Template::renderLabelsFile([$labelsData]));
 
         //write label translations (left side)
 
         $labelsData = [];
         $labelsData['label'] = FieldFactory::getLabelName($linkName);
         $labelsData['translation'] = $rhsModule . ' of ' . $lhsModule;
-        file_put_contents("custom/Extension/modules/$lhsModule/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
+        file_put_contents("$customPath/Extension/modules/$lhsModule/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
 
         //write label translations (right side)
         $labelsData = [];
         $labelsData['label'] = FieldFactory::getLabelName($linkName);
         $labelsData['translation'] = $lhsModule . ' of ' . $rhsModule;
-        file_put_contents("custom/Extension/modules/$rhsModule/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
+        file_put_contents("$customPath/Extension/modules/$rhsModule/Ext/Language/en_us." . strtolower($linkName) . '.php', Template::renderLabelsFile([$labelsData]));
     }
 }

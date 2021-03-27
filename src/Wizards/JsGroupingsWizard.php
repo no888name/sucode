@@ -33,14 +33,14 @@ class JsGroupingsWizard
         $content = Template::renderJsGroupingsPhp([
             ':fileName' => strtolower($fileName),
         ]);
-        Helper::mkdir('custom/Extension/application/Ext/JSGroupings/');
+        Helper::mkdir("$customPath/Extension/application/Ext/JSGroupings/");
         file_put_contents($customPath . '/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
 
         //1 js file definition
         $content = Template::renderJsGroupingsJs([
             'jsGroupingHandler' => $grouppingHandlerName,
         ]);
-        Helper::mkdir('custom/include/');
+        Helper::mkdir("$customPath/include/");
         file_put_contents($customPath . '/include/' . strtolower($fileName) . '.js', $content);
     }
 }

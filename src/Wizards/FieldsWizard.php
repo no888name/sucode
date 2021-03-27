@@ -24,7 +24,7 @@ class FieldsWizard
 
         $moduleName = $io->ask('Input Module name');
         $fieldName = $io->ask('Input field name');
-        $fieldType = $io->ask('Input field type: string,enum,int', 'string');
+        $fieldType = $io->ask('Input field type: string,enum,int,url,relate', 'string');
         $fieldLabel = $io->ask('Input field label');
 
         //open manifest

@@ -1,1 +1,9 @@
-/vendor/
+vendor/
+.phive/
+tools/
+.php_cs.cache
+box
+box.bat
+composer.phar
+
+

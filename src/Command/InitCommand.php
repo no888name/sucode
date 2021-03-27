@@ -68,6 +68,7 @@ class InitCommand extends Command
             file_put_contents($name . '/.php_cs', Template::renderPhpCs());
             file_put_contents($name . '/.gitignore', Template::renderGitignore());
             file_put_contents($name . '/src/LICENSE', Template::renderLicence());
+            file_put_contents($name . '/CHANGELOG', Template::renderChangeLog());
             file_put_contents($name . '/src/scripts/post_install.php', Template::renderPostInstall());
         }
 

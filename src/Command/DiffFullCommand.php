@@ -68,6 +68,13 @@ class DiffFullCommand extends Command
 
         $deploymentPath = $io->ask('Where is you deployment folder', $deploymentPath);
 
+        if ('src/modules' == $rootPath2) {
+            $deploymentPath2 = $deploymentPath . '/modules';
+        }
+        if ('src/SugarModules' == $rootPath2) {
+            $deploymentPath2 = $deploymentPath . '';
+        }
+
         $config['deploymentPath'] = $deploymentPath;
         file_put_contents('.sucode', json_encode($config));
         $deploymentPath2 = $deploymentPath . '/modules';
