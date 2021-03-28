@@ -6,7 +6,7 @@ Usage
 1. Installation
 
 ```properties
-wget https://github.com/litvinovandrew/sucode/blob/af13ac796a4a7ed1712ae391c75bd8ea0cf5e67c/build/sucode.phar && 
+wget https://github.com/litvinovandrew/sucode/releases/download/1.0.0/sucode.phar && 
 cp /usr/bin/sucode
 ```
 
@@ -56,6 +56,11 @@ If you want to adapt the logic for your needs :
 2) execute `composer install`
 3) make any needed changes
 3) download box 
+```properties
    phive install humbug/box --force-accept-unsigned
-4) Build ./tools/box build && sudo mv sucode.phar /usr/bin/sucode
+```
+4) Build 
+```properties
+./tools/box build && sudo mv sucode.phar /usr/bin/sucode
+```
 5) execute from command line `sucode` 
