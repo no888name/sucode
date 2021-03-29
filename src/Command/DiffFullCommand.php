@@ -85,7 +85,7 @@ class DiffFullCommand extends Command
 
         $this->specificRun($rootPath, $deploymentPath, $exclude);
         if ($rootPath2) {
-            $this->specificRun($rootPath2, $deploymentPath, $exclude);
+            $this->specificRun($rootPath2, $deploymentPath2, $exclude);
         }
 
         return Command::SUCCESS;
