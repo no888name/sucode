@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Wizards\AclWizard;
 use App\Wizards\ApiWizard;
+use App\Wizards\EntrypointWizard;
 use App\Wizards\FieldsWizard;
 use App\Wizards\HooksWizard;
 use App\Wizards\JsGroupingsWizard;
@@ -51,11 +52,12 @@ class AddCommand extends Command
                 6 => 'Add admin section/layout',
                 7 => 'Create Api Endpoint',
                 8 => 'Add Scheduler',
+                9 => 'Add Entrypoint',
 
-                9 => 'Add field to filter[n/a]',
-                10 => 'Add action menu[n/a]',
-                11 => 'Create Bean wizard[n/a]',
-                12 => 'ACL',
+                10 => 'Add field to filter[n/a]',
+                11 => 'Add action menu[n/a]',
+                12 => 'Create Bean wizard[n/a]',
+                13 => 'ACL',
             ],
             0
         );
@@ -89,6 +91,10 @@ class AddCommand extends Command
             case 'ACL':
                 AclWizard::run($input, $output);
                 break;
+
+                case 'Add Entrypoint':
+                    EntrypointWizard::run($input, $output);
+                    break;
 
             case 'Add Scheduler':
                 SchedulerWizard::run($input, $output);

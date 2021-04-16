@@ -152,6 +152,8 @@ class DiffFullCommand extends Command
                             break;
                         case 'accept destination':
                             //copy from deployment to me
+                            echo 'copy from' . $fileOnDeploySide . PHP_EOL;
+                            echo 'copy to' . $filePath . PHP_EOL;
                             copy($fileOnDeploySide, $filePath);
                             break;
 

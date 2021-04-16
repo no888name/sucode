@@ -100,6 +100,20 @@ class Template
         return strtr($str, $data);
     }
 
+    public static function renderEntrypoint($data)
+    {
+        $str = file_get_contents(__DIR__ . '/custom/Extension/application/Ext/EntryPointRegistry/customEntryPointRegistry.php');
+
+        return strtr($str, $data);
+    }
+
+    public static function renderEntrypointSample($data)
+    {
+        $str = file_get_contents(__DIR__ . '/custom/entrypoints/customEntrypoint.php');
+
+        return strtr($str, $data);
+    }
+
     public static function renderSchedulerFile($data)
     {
         $str = file_get_contents(__DIR__ . '/custom/Extension/modules/Schedulers/Ext/ScheduledTasks/task_template.php');
