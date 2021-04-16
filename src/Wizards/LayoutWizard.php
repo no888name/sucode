@@ -15,6 +15,8 @@ class LayoutWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -45,23 +47,23 @@ class LayoutWizard
         $lbl_layout_desc = $io->ask('Enter layout description ', 'My Sample Layout');
 
         //1 prepare layout files
-        Helper::mkdir("$customPath/clients/base/layouts/$layoutName");
+        $file->mkdir("$customPath/clients/base/layouts/$layoutName");
         $content = Template::renderLayoutDef([
             ':template-layout-name' => $layoutName,
         ]);
-        file_put_contents("$customPath/clients/base/layouts/$layoutName/$layoutName-def.php", $content);
+        $file->put_content("$customPath/clients/base/layouts/$layoutName/$layoutName-def.php", $content);
 
         //2 prepare views files
-        Helper::mkdir("$customPath/clients/base/views/$layoutName-view");
+        $file->mkdir("$customPath/clients/base/views/$layoutName-view");
         $content = Template::renderLayoutViewJs([
             ':template-layout-name' => $layoutName,
         ]);
-        file_put_contents("$customPath/clients/base/views/$layoutName-view/$layoutName-view.js", $content);
+        $file->put_content("$customPath/clients/base/views/$layoutName-view/$layoutName-view.js", $content);
 
         $content = Template::renderLayoutViewHbs([
             ':template-layout-desc' => $lbl_layout_desc,
         ]);
-        file_put_contents("$customPath/clients/base/views/$layoutName-view/$layoutName-view.hbs", $content);
+        $file->put_content("$customPath/clients/base/views/$layoutName-view/$layoutName-view.hbs", $content);
 
         $processAdmin = $io->ask('Do you want to create Admin link for this layout (y/n)?', 'n');
         if ('y' != $processAdmin) {
@@ -69,17 +71,17 @@ class LayoutWizard
         }
 
         //3 Administration folder
-        Helper::mkdir("$customPath/Extension/modules/Administration/");
-        Helper::mkdir("$customPath/Extension/modules/Administration/Ext");
-        Helper::mkdir("$customPath/Extension/modules/Administration/Ext/Administration");
-        Helper::mkdir("$customPath/Extension/modules/Administration/Ext/Language");
+        $file->mkdir("$customPath/Extension/modules/Administration/");
+        $file->mkdir("$customPath/Extension/modules/Administration/Ext");
+        $file->mkdir("$customPath/Extension/modules/Administration/Ext/Administration");
+        $file->mkdir("$customPath/Extension/modules/Administration/Ext/Language");
 
         $content = Template::renderAdminLayoutDef([
             ':template-layout-name' => $layoutName,
             ':LBL_LAYOUT_NAME' => $LBL_LAYOUT_NAME,
             ':LBL_LAYOUT_DESC' => $LBL_LAYOUT_DESC,
         ]);
-        file_put_contents("$customPath/Extension/modules/Administration/Ext/Administration/$layoutName.php", $content);
+        $file->put_content("$customPath/Extension/modules/Administration/Ext/Administration/$layoutName.php", $content);
 
         $content = Template::renderAdminLayoutLang([
             ':lbl_layout_name' => $lbl_layout_name,
@@ -87,6 +89,7 @@ class LayoutWizard
             ':LBL_LAYOUT_NAME' => $LBL_LAYOUT_NAME,
             ':LBL_LAYOUT_DESC' => $LBL_LAYOUT_DESC,
         ]);
-        file_put_contents("$customPath/Extension/modules/Administration/Ext/Language/en_us.$layoutName.php", $content);
+        $file->put_content("$customPath/Extension/modules/Administration/Ext/Language/en_us.$layoutName.php", $content);
+        $file->printSummary();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Templates\Template;
+use App\Wizards\File;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,6 +28,7 @@ class InitCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
         $result = $io->confirm('Do you want to create sugar package in current directory ?');
         $data = [];
 
@@ -52,27 +54,29 @@ class InitCommand extends Command
 
             $data[':UpperCamelName'] = implode('', $nameParts);
 
-            mkdir($name);
-            mkdir("$name/src");
-            mkdir("$name/src/custom");
-            mkdir("$name/src/custom/Extension");
-            mkdir("$name/src/custom/Extension/modules");
-            mkdir("$name/src/custom/Extension/application");
-            mkdir("$name/src/custom/Extension/application/Ext");
-            mkdir("$name/src/custom/Extension/application/Ext/Language");
-            mkdir("$name/src/scripts");
+            $file->mkdir($name);
+            $file->mkdir("$name/src");
+            $file->mkdir("$name/src/custom");
+            $file->mkdir("$name/src/custom/Extension");
+            $file->mkdir("$name/src/custom/Extension/modules");
+            $file->mkdir("$name/src/custom/Extension/application");
+            $file->mkdir("$name/src/custom/Extension/application/Ext");
+            $file->mkdir("$name/src/custom/Extension/application/Ext/Language");
+            $file->mkdir("$name/src/scripts");
 
             $manifest = Template::renderManifest($data);
-            file_put_contents($name . '/src/manifest.php', $manifest);
-            file_put_contents($name . '/zipper.php', Template::renderZipper());
-            file_put_contents($name . '/.php_cs', Template::renderPhpCs());
-            file_put_contents($name . '/.gitignore', Template::renderGitignore());
-            file_put_contents($name . '/src/LICENSE', Template::renderLicence());
-            file_put_contents($name . '/CHANGELOG', Template::renderChangeLog());
-            file_put_contents($name . '/src/scripts/post_install.php', Template::renderPostInstall());
+            $file->put_content($name . '/src/manifest.php', $manifest);
+            $file->put_content($name . '/zipper.php', Template::renderZipper());
+            $file->put_content($name . '/.php_cs', Template::renderPhpCs());
+            $file->put_content($name . '/.gitignore', Template::renderGitignore());
+            $file->put_content($name . '/src/LICENSE', Template::renderLicence());
+            $file->put_content($name . '/CHANGELOG', Template::renderChangeLog());
+            $file->put_content($name . '/src/scripts/post_install.php', Template::renderPostInstall());
         }
 
-        $io->writeln('Finished ...');
+        $file->printSummary();
+
+        
 
         return Command::SUCCESS;
     }

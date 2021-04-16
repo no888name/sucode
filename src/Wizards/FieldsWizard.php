@@ -16,6 +16,8 @@ class FieldsWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -39,19 +41,21 @@ class FieldsWizard
 
         //write manifest
         $content = Template::renderReadyManifest($installdefs, $manifest);
-        file_put_contents($manifestPath, $content);
+        $file->put_content($manifestPath, $content);
 
         //write label translations
-        Helper::mkdir($customPath . "/Extension/modules/$moduleName/Ext/Language/");
+        $file->mkdir($customPath . "/Extension/modules/$moduleName/Ext/Language/");
         $labelsData = [];
         $labelsData['label'] = FieldFactory::getLabelName($fieldName);
         $labelsData['translation'] = $fieldLabel;
-        file_put_contents($customPath . "/Extension/modules/$moduleName/Ext/Language/en_us." . strtolower($fieldName) . '.lang.php', Template::renderLabelsFile([$labelsData]));
+        $file->put_content($customPath . "/Extension/modules/$moduleName/Ext/Language/en_us." . strtolower($fieldName) . '.lang.php', Template::renderLabelsFile([$labelsData]));
 
         if ($factory->listName) {
             //also need prepare file for list definition
-            Helper::mkdir($customPath . '/Extension/application/Ext/Language/');
-            file_put_contents($customPath . '/Extension/application/Ext/Language/en_us.' . $factory->listName . '_sucode.php', Template::renderListFile($factory->listName, []));
+            $file->mkdir($customPath . '/Extension/application/Ext/Language/');
+            $file->put_content($customPath . '/Extension/application/Ext/Language/en_us.' . $factory->listName . '_sucode.php', Template::renderListFile($factory->listName, []));
         }
+
+        $file->printSummary();
     }
 }

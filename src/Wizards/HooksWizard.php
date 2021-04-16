@@ -15,6 +15,8 @@ class HooksWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -31,15 +33,17 @@ class HooksWizard
         $hooksClassName = $className . 'Hooks';
 
         //create
-        Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/LogicHooks/");
-        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/LogicHooks/" . strtolower($hookUniqueKey) . '_hooks.php', Template::renderHooks([':className' => $hooksClassName]));
+        $file->mkdir("$customPath/Extension/modules/$moduleName/Ext/LogicHooks/");
+        $file->put_content("$customPath/Extension/modules/$moduleName/Ext/LogicHooks/" . strtolower($hookUniqueKey) . '_hooks.php', Template::renderHooks([':className' => $hooksClassName]));
 
-        Helper::mkdir("$customPath/hooks");
-        file_put_contents("$customPath/hooks/$className" . 'Hooks.php', Template::renderHooksClass([':className' => $hooksClassName]));
+        $file->mkdir("$customPath/hooks");
+        $file->put_content("$customPath/hooks/$className" . 'Hooks.php', Template::renderHooksClass([':className' => $hooksClassName]));
 
         //module helper
         $helper = Template::renderHelper($data);
-        Helper::mkdir("$customPath/general");
-        file_put_contents("$customPath/general/ModuleHelper.php", $helper);
+        $file->mkdir("$customPath/general");
+        $file->put_content("$customPath/general/ModuleHelper.php", $helper);
+
+        $file->printSummary();
     }
 }

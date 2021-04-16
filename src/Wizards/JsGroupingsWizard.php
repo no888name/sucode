@@ -15,6 +15,8 @@ class JsGroupingsWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -33,14 +35,16 @@ class JsGroupingsWizard
         $content = Template::renderJsGroupingsPhp([
             ':fileName' => strtolower($fileName),
         ]);
-        Helper::mkdir("$customPath/Extension/application/Ext/JSGroupings/");
-        file_put_contents($customPath . '/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
+        $file->mkdir("$customPath/Extension/application/Ext/JSGroupings/");
+        $file->put_content($customPath . '/Extension/application/Ext/JSGroupings/' . strtolower($fileName) . '.php', $content);
 
         //1 js file definition
         $content = Template::renderJsGroupingsJs([
             'jsGroupingHandler' => $grouppingHandlerName,
         ]);
-        Helper::mkdir("$customPath/include/");
-        file_put_contents($customPath . '/include/' . strtolower($fileName) . '.js', $content);
+        $file->mkdir("$customPath/include/");
+        $file->put_content($customPath . '/include/' . strtolower($fileName) . '.js', $content);
+
+        $file->printSummary();
     }
 }

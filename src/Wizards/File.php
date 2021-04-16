@@ -5,7 +5,8 @@ namespace App\Wizards;
 
 class File
 {
-    public $filesProcessed = [];
+    public $filesCreated = [];
+    public $filesUpdated = [];
     public $dirsProcessed = [];
 
     /**
@@ -23,9 +24,13 @@ class File
     public function put_content($filename, $data)
     {
 
-        file_put_contents($filename, $data);
-
-        $this->filesProcessed[] = $filename;
+        if (file_exists($filename)) {
+            file_put_contents($filename, $data);
+            $this->filesUpdated[] = $filename;
+        } else {
+            file_put_contents($filename, $data);
+            $this->filesCreated[] = $filename;
+        }
     }
 
     public function mkdir($dir)
@@ -39,7 +44,7 @@ class File
             mkdir($dir, 0777, true);
             $this->dirsProcessed[] = $dir;
         }
-       
+
 
         return $dir;
     }
@@ -48,14 +53,28 @@ class File
     public function printSummary()
     {
 
-        $this->io->writeln('Files created:');
+        $created = count($this->filesCreated) || count($this->dirsProcessed);
+        $updated = count($this->filesUpdated);
 
-        foreach ($this->dirsProcessed as $dir) {
-            $this->io->writeln($dir);
+        if ($created) {
+            $this->io->writeln('Files created:');
+            foreach ($this->dirsProcessed as $dir) {
+                $this->io->writeln($dir);
+            }
+
+            foreach ($this->filesCreated as $dir) {
+                $this->io->writeln($dir);
+            }
         }
 
-        foreach ($this->filesProcessed as $dir) {
-            $this->io->writeln($dir);
+        if ($updated) {
+            $this->io->writeln('Files updated:');
+            foreach ($this->filesUpdated as $dir) {
+                $this->io->writeln($dir);
+            }
         }
+
+
+        $this->io->writeln('Finished.');
     }
 }

@@ -15,6 +15,8 @@ class ApiWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -24,16 +26,18 @@ class ApiWizard
         $className = $io->ask('Enter API Class Name ', 'MyCrm' . ucfirst(Helper::generateRandomString(4)) . 'Api');
 
         //1 prepare layout files
-        Helper::mkdir("$customPath/clients/base/api");
+        $file->mkdir("$customPath/clients/base/api");
 
         $content = Template::renderApi([
             'SampleApi' => $className,
             ':class_name' => strtolower($className),
         ]);
-        file_put_contents("$customPath/clients/base/api/$className.php", $content);
+        $file->put_content("$customPath/clients/base/api/$className.php", $content);
 
-        Helper::mkdir("$customPath/jobs");
+        $file->mkdir("$customPath/jobs");
         $content = Template::renderCustomJobScheduler([]);
-        file_put_contents("$customPath/clients/base/api/CustomJobScheduler.php", $content);
+        $file->put_content("$customPath/clients/base/api/CustomJobScheduler.php", $content);
+
+        $file->printSummary();
     }
 }

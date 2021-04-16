@@ -15,6 +15,8 @@ class SchedulerWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -31,13 +33,15 @@ class SchedulerWizard
         $className = str_replace('_', '', $className);
 
         //create language dir
-        Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/Language/");
-        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/Language/en_us." . strtolower($iniqueKey) . '_scheduler.php', Template::renderSchedulerLang([
+        $file->mkdir("$customPath/Extension/modules/$moduleName/Ext/Language/");
+        $file->put_content("$customPath/Extension/modules/$moduleName/Ext/Language/en_us." . strtolower($iniqueKey) . '_scheduler.php', Template::renderSchedulerLang([
             ':LBL_LABEL_NAME' => 'LBL_' . strtoupper($iniqueKey) . '_SCHEDULER',
             ':LBL_LABEL_VALUE' => $description,
         ]));
 
-        Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/");
-        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/" . strtolower($iniqueKey) . '_scheduler.php', Template::renderSchedulerFile([':unique_name' => $iniqueKey]));
+        $file->mkdir("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/");
+        $file->put_content("$customPath/Extension/modules/$moduleName/Ext/ScheduledTasks/" . strtolower($iniqueKey) . '_scheduler.php', Template::renderSchedulerFile([':unique_name' => $iniqueKey]));
+    
+        $file->printSummary();
     }
 }

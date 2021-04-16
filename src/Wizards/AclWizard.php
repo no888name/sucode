@@ -15,6 +15,8 @@ class AclWizard
         $manifestPath = Helper::getManifestPath();
 
         $io = new SymfonyStyle($input, $output);
+        $file = new File($io);
+
 
         if (!$customPath) {
             $io->writeln('manifest.php not found. Please run the command from the src directory');
@@ -22,24 +24,26 @@ class AclWizard
         }
 
         $aclName = $io->ask('Input Acl name', 'CustomAclBlaBla');
-        Helper::mkdir("$customPath/data/acl");
-        file_put_contents("$customPath/data/acl/$aclName.php", Template::renderAcl([
+        $file->mkdir("$customPath/data/acl");
+        $file->put_content("$customPath/data/acl/$aclName.php", Template::renderAcl([
             'AclTemplateName' => $aclName,
         ]));
 
-        Helper::mkdir("$customPath/Extension/application/Ext/Include/");
-        file_put_contents("$customPath/Extension/application/Ext/Include/$aclName.php", Template::renderIncludeAcl([
+        $file->mkdir("$customPath/Extension/application/Ext/Include/");
+        $file->put_content("$customPath/Extension/application/Ext/Include/$aclName.php", Template::renderIncludeAcl([
             'aclName' => $aclName,
         ]));
 
         $moduleName = $io->ask('For which module should I enable Acl? ', 'Accounts');
         $moduleNameSingular = $io->ask('module name singular ', substr($moduleName, 0, -1));
 
-        Helper::mkdir("$customPath/Extension/modules/$moduleName/Ext/Vardefs/");
-        file_put_contents("$customPath/Extension/modules/$moduleName/Ext/Vardefs//$aclName.php", Template::renderAclEnable([
+        $file->mkdir("$customPath/Extension/modules/$moduleName/Ext/Vardefs/");
+        $file->put_content("$customPath/Extension/modules/$moduleName/Ext/Vardefs//$aclName.php", Template::renderAclEnable([
             'moduleName' => $moduleName,
             'moduleNameSingular' => $moduleNameSingular,
             'aclName' => $aclName,
         ]));
+
+        $file->printSummary();
     }
 }
