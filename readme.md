@@ -29,6 +29,7 @@ and then you will be able to:
 - Add admin section/layout
 - Create Api Endpoint
 - Add Scheduler
+- Add Entrypoint
 - Add field to filter[n/a]
 - Add action menu[n/a]
 - Create Bean wizard[n/a]
@@ -61,6 +62,6 @@ If you want to adapt the logic for your needs :
 ```
 4) Build 
 ```properties
-./tools/box build && sudo mv sucode.phar /usr/bin/sucode
+./tools/box build && sudo cp sucode.phar /usr/bin/sucode
 ```
 5) execute from command line `sucode` 
