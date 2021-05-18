@@ -6,7 +6,7 @@ Usage
 1. Installation
 
 ```properties
-wget https://github.com/litvinovandrew/sucode/releases/download/1.0.1/sucode.phar && 
+wget wget https://github.com/litvinovandrew/sucode/releases/download/1.0.2/sucode.phar && 
 cp /usr/bin/sucode
 ```
 
