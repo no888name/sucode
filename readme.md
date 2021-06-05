@@ -6,8 +6,7 @@ Usage
 1. Installation
 
 ```properties
-wget wget https://github.com/litvinovandrew/sucode/releases/download/1.0.2/sucode.phar && 
-cp /usr/bin/sucode
+wget  https://github.com/litvinovandrew/sucode/releases/download/1.0.2/sucode.phar && sudo  mv sucode.phar /usr/bin/sucode && chmod +x /usr/bin/sucode
 ```
 
 2. To start package development, execute
